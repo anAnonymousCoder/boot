@@ -1,6 +1,8 @@
-package com.wqy.boot.domain;
+package com.wqy.boot.domain.entity;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -20,6 +22,8 @@ import org.springframework.validation.annotation.Validated;
 开启数据校验
  */
 @Validated
+// Swagger实体类注释，在controller中作为返回值的实体类才会被扫描到
+@ApiModel("Dog实体类")
 public class Dog {
 
     /*
@@ -28,8 +32,10 @@ public class Dog {
     告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定
     参数 prefix = “dog” : 将配置文件中的dog下面的所有属性一一对应
     */
+    @ApiModelProperty("名字")
     private String name;
 
+    @ApiModelProperty("年龄")
     private int age;
 
 

@@ -1,5 +1,9 @@
+spring:
+  profiles:
+    active: dev
+
 server:
-  port: 8080
+  port: 8001
 
 # @configurationProperties
 dog:
@@ -9,3 +13,8 @@ dog:
 # @Value
 pet:
   master: sxy
+
+# logback日志配置
+logging:
+  file:
+    path: D:/Documents/logs/bootApplication

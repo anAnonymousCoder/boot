@@ -1,6 +1,6 @@
 package com.wqy.boot;
 
-import com.wqy.boot.domain.Dog;
+import com.wqy.boot.domain.entity.Dog;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BootApplicationTests {
 
     @Autowired
-    Dog dog;
+    private Dog dog;
 
     @Test
     public void contextLoads() {
