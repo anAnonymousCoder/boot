@@ -1,6 +1,6 @@
-package com.wqy.boot.controller;
+package com.wqy.boot.core.controller;
 
-import com.wqy.boot.domain.entity.Dog;
+import com.wqy.boot.core.domain.entity.Dog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

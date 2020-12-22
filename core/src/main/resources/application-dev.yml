@@ -1,0 +1,4 @@
+# 开发环境profile
+# 开发环境开启Swagger
+swagger:
+  enable: true

@@ -1,4 +1,4 @@
-package com.wqy.boot.domain.entity;
+package com.wqy.boot.core.domain.entity;
 
 
 import io.swagger.annotations.ApiModel;
