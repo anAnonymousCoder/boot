@@ -44,6 +44,30 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
+        <!-- 数据库依赖 !-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- common模块 !-->
+        <dependency>
+            <groupId>com.wqy</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
+        <!-- freemarker !-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

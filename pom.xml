@@ -20,10 +20,13 @@
     <properties>
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
+        <core.version>1.0.0</core.version>
+        <common.version>1.0.0</common.version>
     </properties>
 
     <modules>
         <module>core</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>
@@ -40,6 +43,19 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- 项目模块 !-->
+            <dependency>
+                <groupId>com.wqy</groupId>
+                <artifactId>core</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.wqy</groupId>
+                <artifactId>common</artifactId>
+                <version>${common.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

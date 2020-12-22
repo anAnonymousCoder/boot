@@ -1,9 +1,11 @@
+# 基础配置
 spring:
   profiles:
     active: dev
+  application:
+    name: boot-core
+    version: 1.0
 
-server:
-  port: 8001
 
 # @configurationProperties
 dog:

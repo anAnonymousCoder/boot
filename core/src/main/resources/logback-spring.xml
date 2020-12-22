@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 每隔60s扫描配置文件是否发生变化 !-->
 <configuration scan="true" scanPeriod="60 seconds">
+    <!-- 引入Spring Boot提供的部分默认配置 !-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--
     指定输出格式
     %d{}: 表示时间
@@ -8,11 +10,13 @@
     %-5level：用5位显示请求级别
     %logger{36}：输出logger名，{36}表示logger名最大占用的字符位数，{0}表示最简短logger名（不包含包名）。
     -->
-    <property name="log.console.pattern"
-              value="%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level) -- %cyan(%logger{36}) : %msg%n"/>
-    <property name="log.file.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <!-- 输出格式使用defaults.xml提供的格式，如有需要可以使用以下的自定义格式 !-->
+    <!--    <property name="log.console.pattern"-->
+    <!--              value="%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level) &#45;&#45; %cyan(%logger{36}) : %msg%n"/>-->
+    <!--    <property name="log.file.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level &#45;&#45; %logger{36} : %msg%n"/>-->
+
     <!-- 指定日志文件的位置，从yml文件中读取配置 !-->
-    <springProperty scope="context" name="log.filePath" source="logging.file.path"/>
+    <springProperty scope="context" name="log.filePath" source="logging.file.path" defaultValue="D:/Documents/logs/bootApplication"/>
     <!-- 归档日志文件最大数量 !-->
     <property name="log.maxHistory" value="30"/>
     <!-- 控制所有归档日志文件的总大小 -->
@@ -21,7 +25,7 @@
     <!-- 日志输出到控制台 !-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${log.console.pattern}</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
     <!-- 日志级别>=DEBUG的在控制台输出 !-->
@@ -38,12 +42,12 @@
         但是如果你忽略了，你当天就能看到app.2020-11-11.log文件，
         但你始终看不到app.log文件
         !-->
-        <file>${log.filePath}/app.log</file>
+        <file>${log.filePath}/spring.log</file>
         <!-- 日志回滚策略 !-->
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.filePath}/app.%d{yyyy-MM-dd}.%i.log
+                ${log.filePath}/spring.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <!-- 日志文件大小，超出进行归档 !-->
             <maxFileSize>8MB</maxFileSize>
@@ -52,7 +56,7 @@
             <totalSizeCap>${totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>${log.file.pattern}</pattern>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
     <!-- 日志级别>=INFO的输出到文件 !-->
@@ -79,13 +83,5 @@
     <logger name="java.sql.PreparedStatement" level="ERROR" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="org.apache.catalina.startup.DigesterFactory" level="ERROR"/>
-    <logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"/>
-    <logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
-    <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
-    <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
-    <logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="ERROR"/>
-    <logger name="org.hibernate.validator.internal.util.Version" level="WARN"/>
-    <logger name="org.springframework.boot.actuate.endpoint.jmx" level="WARN"/>
 
 </configuration>
