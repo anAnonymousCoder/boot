@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 测试接口
+ *
+ * @author wqy
+ * @version 1.0 2020/12/28
+ */
 @RestController
 @RequestMapping("/rest/test")
-@Api(tags = {"测试接口"})
+@Api(value = "TestController", tags = {"测试接口"})
 public class TestController {
 
     @Autowired

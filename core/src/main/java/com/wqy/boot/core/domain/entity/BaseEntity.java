@@ -11,13 +11,15 @@ import java.util.Date;
 
 /**
  * 基础实体类，封装公用的id和时间戳等属性
+ * 实体父类
+ * 序列化时忽略懒加载属性，避免报错
  *
  * @author wqy
  * @version 1.0 2020/10/9
  */
 
-@MappedSuperclass // 表明这是一个实体父类
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fieldHandler"}) // 序列化时忽略懒加载属性，避免报错
+@MappedSuperclass
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fieldHandler"})
 public abstract class BaseEntity implements Serializable {
 
     private String id;

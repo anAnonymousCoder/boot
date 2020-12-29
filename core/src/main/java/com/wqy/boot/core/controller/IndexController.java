@@ -21,9 +21,9 @@ public class IndexController {
         return "/index";
     }
 
-    @GetMapping("/users/user-manage")
+    @GetMapping("/user/user-manage")
     public String userManage() {
-        return "/user-manage";
+        return "/user/user-manage";
     }
 
 }

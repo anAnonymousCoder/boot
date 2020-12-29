@@ -12,22 +12,33 @@ import java.util.List;
 public class PageVO<T> {
 
     public PageVO() {
-
+        this.code = 0;
+        this.msg = "";
     }
 
-    //code
-    private int code = 0;
+    /**
+     * code
+     */
+    private Integer code;
 
-    //信息
-    private String msg = "";
+    /**
+     * 信息
+     */
+    private String msg;
 
-    //记录数
-    private long count;
+    /**
+     * 记录数
+     */
+    private Long count;
 
-    //分页记录
+    /**
+     * 分页记录
+     */
     private List<T> data;
 
     public PageVO(long count, List<T> data) {
+        this.code = 0;
+        this.msg = "";
         this.count = count;
         this.data = data;
     }
@@ -62,5 +73,15 @@ public class PageVO<T> {
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "PageVO{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
     }
 }

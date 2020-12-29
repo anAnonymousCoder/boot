@@ -1,6 +1,10 @@
 package com.wqy.boot.common.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * User数据传输对象
@@ -10,23 +14,49 @@ import java.io.Serializable;
  */
 public class UserDTO implements Serializable {
 
-    //id
+    /**
+     * id
+     */
     private String id;
 
-    //编号
-    private int number;
+    /**
+     * 编号
+     */
+    private Integer number;
 
-    //姓名
-    private String name;
+    /**
+     * 姓名
+     */
+    private String username;
 
-    //年龄
-    private int age;
+    /**
+     * 年龄
+     */
+    private Integer age;
 
-    //性别
+    /**
+     * 性别
+     */
     private String gender;
 
-    //密码
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 创建日期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createAt;
+
+    /**
+     * 修改日期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateAt;
 
     public UserDTO() {
     }
@@ -39,27 +69,27 @@ public class UserDTO implements Serializable {
         this.id = id;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -77,5 +107,35 @@ public class UserDTO implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id='" + id + '\'' +
+                ", number=" + number +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", password='" + password + '\'' +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                '}';
     }
 }

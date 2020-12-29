@@ -5,10 +5,10 @@ layui.use(['table', 'layer'], function () {
     /**
      * 渲染表格
      */
-    var tableIns = table.render({
+    let tableIns = table.render({
         elem: '#user-list'
         , height: 'full-200'
-        , url: '/rest/users/page'
+        , url: '/rest/user/page'
         , page: true
         , toolbar: 'default'
         , cols: [[

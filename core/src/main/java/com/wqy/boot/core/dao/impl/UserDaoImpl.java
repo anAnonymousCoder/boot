@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends BaseDaoImpl<User, String, UserRepository<User>> implements UserDao {
 
     @Override
-    public User findByName(String name) {
-        return repo.findByName(name);
+    public User findByUsername(String username) {
+        return repo.findByUsername(username);
     }
 }

@@ -3,14 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.wqy</groupId>
-        <artifactId>boot</artifactId>
+        <groupId>com.wqy.boot</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>core</artifactId>
     <version>1.0.0</version>
     <name>core</name>
+    <packaging>jar</packaging>
     <description>Core Application</description>
 
     <dependencies>
@@ -56,9 +57,15 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Spring Security !-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!-- common模块 !-->
         <dependency>
-            <groupId>com.wqy</groupId>
+            <groupId>com.wqy.boot</groupId>
             <artifactId>common</artifactId>
         </dependency>
 

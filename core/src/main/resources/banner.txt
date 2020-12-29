@@ -7,6 +7,6 @@
  ██   ███  ▀██▄▄██▀   ▄▄██▄▄   █▄▄▄▄▄█▀     ██
  ▀▀   ▀▀▀    ▀▀▀▀     ▀▀▀▀▀▀    ▀▀▀▀▀       ▀▀
 
-:: Cloud App
+:: Boot App
 :: ${spring.application.name} :: ${spring.application.version}
 :: Spring Boot :: ${spring-boot.version}

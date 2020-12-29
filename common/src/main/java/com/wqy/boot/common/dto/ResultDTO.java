@@ -8,20 +8,26 @@ package com.wqy.boot.common.dto;
  */
 public class ResultDTO<T> {
 
-    //code
-    private int code;
+    /**
+     * code
+     */
+    private Integer code;
 
-    //信息
+    /**
+     * 信息
+     */
     private String msg;
 
-    //数据
+    /**
+     * 数据
+     */
     private T data;
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -52,14 +58,24 @@ public class ResultDTO<T> {
         this.msg = msg;
     }
 
-    public ResultDTO() {}
+    public ResultDTO() {
+    }
 
     public enum ResultCode {
 
+        /**
+         * 成功
+         */
         SUCCESS(0),
 
+        /**
+         * 失败
+         */
         FAILURE(1),
 
+        /**
+         * 警告
+         */
         WARNING(2);
 
         private int code;
@@ -72,5 +88,14 @@ public class ResultDTO<T> {
             return code;
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "ResultDTO{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

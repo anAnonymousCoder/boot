@@ -7,12 +7,12 @@ import com.wqy.boot.core.dao.specification.UserSpecification;
 import com.wqy.boot.core.domain.builder.UserBuilder;
 import com.wqy.boot.core.domain.entity.User;
 import com.wqy.boot.core.service.UserService;
-import com.wqy.boot.core.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -32,7 +32,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    // 日志
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * 日志
+     */
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     /**
@@ -44,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResultDTO<UserDTO> saveUser(UserDTO userDTO) {
-        User user = UserBuilder.buildEntity(userDTO);
+        User user = UserBuilder.buildEntity(userDTO, passwordEncoder);
         UserDTO record = UserBuilder.buildDTO(userDao.save(user));
         return new ResultDTO<>(ResultDTO.ResultCode.SUCCESS.getCode(), "Added successfully", record);
     }
@@ -56,16 +61,16 @@ public class UserServiceImpl implements UserService {
      * @return 用户对象
      */
     @Override
-    public UserDTO findUserById(String id) {
+    public UserDTO findById(String id) {
         if (StringUtils.isEmpty(id)) {
             return null;
         } else {
-            User user = userDao.findById(id);
+            User user = userDao.findByUsername(id);
             if (user == null) {
                 logger.warn("User not found, id:{}", id);
                 return null;
             } else {
-                return UserBuilder.buildDTO(userDao.findById(id));
+                return UserBuilder.buildDTO(userDao.findByUsername(id));
             }
         }
     }
@@ -73,20 +78,20 @@ public class UserServiceImpl implements UserService {
     /**
      * 通过name查找用户
      *
-     * @param name 用户name
+     * @param username 用户name
      * @return 用户对象
      */
     @Override
-    public UserDTO findUserByName(String name) {
-        if (StringUtils.isEmpty(name)) {
+    public UserDTO findByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
             return null;
         } else {
-            User user = userDao.findById(name);
+            User user = userDao.findByUsername(username);
             if (user == null) {
-                logger.warn("User not found, name:{}", name);
+                logger.warn("User not found, username: {}", username);
                 return null;
             } else {
-                return UserBuilder.buildDTO(userDao.findById(name));
+                return UserBuilder.buildDTO(userDao.findByUsername(username));
             }
         }
     }
@@ -94,21 +99,22 @@ public class UserServiceImpl implements UserService {
     /**
      * 用户登录验证
      *
-     * @param name     用户名
+     * @param username     用户名
      * @param password 密码
      * @return 查找结果
      */
     @Override
-    public ResultDTO<UserDTO> checkLogin(String name, String password) {
-        User user = userDao.findByName(name);
+    public ResultDTO<UserDTO> checkLogin(String username, String password) {
+        User user = userDao.findByUsername(username);
         if (user == null) {
-            logger.warn("User not found, name:{}", name);
+            logger.warn("User not found, username: {}", username);
             return new ResultDTO<>(ResultDTO.ResultCode.WARNING.getCode(), "User not found");
         }
-        if (EncryptionUtil.equals(password, user.getPassword(), "SHA")) {
-            return new ResultDTO<>(ResultDTO.ResultCode.SUCCESS.getCode(), "Login Success");
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            logger.info("User login successfully, username: {}", username);
+            return new ResultDTO<>(ResultDTO.ResultCode.SUCCESS.getCode(), "Login success");
         } else {
-            logger.warn("Password mismatch, name:{}", name);
+            logger.warn("Password mismatch, username: {}", username);
             return new ResultDTO<>(ResultDTO.ResultCode.FAILURE.getCode(), "Password mismatch");
         }
     }

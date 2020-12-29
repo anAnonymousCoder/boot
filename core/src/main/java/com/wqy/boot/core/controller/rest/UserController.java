@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0 2020/10/9
  */
 
-@Api(tags = {"用户Controller"})
+@Api(value = "UserController", tags = {"用户接口"})
 @RestController
-@RequestMapping("/rest/users")
+@RequestMapping("/rest/user")
 public class UserController {
 
     @Autowired
@@ -34,8 +34,8 @@ public class UserController {
      * @return 新增的用户
      */
     @ApiOperation(value = "新增用户")
-    @PostMapping(value = "/create", consumes = {"application/json"})
-    public ResultDTO<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    @PostMapping(value = "/save", consumes = {"application/json"})
+    public ResultDTO<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
 
@@ -48,33 +48,35 @@ public class UserController {
     @ApiOperation(value = "通过id查找用户")
     @GetMapping("/{id}")
     public UserDTO findById(@PathVariable(name = "id") String id) {
-        return userService.findUserById(id);
+        return userService.findById(id);
     }
 
     /**
-     * 通过name查找用户
+     * 通过username查找用户
      *
-     * @param name 用户name
+     * @param username 用户name
      * @return 查找到的用户
      */
-    @ApiOperation(value = "通过name查找用户")
-    @PostMapping("/{name}")
-    public UserDTO findByName(@PathVariable(name = "name") String name) {
-        return userService.findUserByName(name);
+    @ApiOperation(value = "通过username查找用户")
+    @PostMapping("/{username}")
+    public UserDTO findByUsername(@PathVariable(name = "username") String username) {
+        return userService.findByUsername(username);
     }
 
     /**
      * 登录验证
+     * 已过时，采用Spring Security表单登录
      *
-     * @param name     用户名
+     * @param username     用户名
      * @param password 密码
      * @return 登录结果
      */
     @ApiOperation(value = "用户登录")
     @GetMapping("/login")
-    public ResultDTO<UserDTO> login(@RequestParam(name = "name") String name,
+    @Deprecated
+    public ResultDTO<UserDTO> login(@RequestParam(name = "username") String username,
                                     @RequestParam(name = "password") String password) {
-        return userService.checkLogin(name, password);
+        return userService.checkLogin(username, password);
     }
 
     /**

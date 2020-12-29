@@ -3,47 +3,46 @@ package com.wqy.boot.core.domain.builder;
 
 import com.wqy.boot.common.dto.UserDTO;
 import com.wqy.boot.core.domain.entity.User;
-import com.wqy.boot.core.util.EncryptionUtil;
+import com.wqy.boot.core.domain.security.WsUserDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * User和userDTO转换类
+ * User和UserDTO转换类
  *
  * @author wqy
  * @version 1.0 2020/11/14
  */
 public class UserBuilder {
 
-    private UserBuilder() {
-
-    }
 
     /**
-     * 将user的属性拷贝给userDTO
+     * 将User的属性拷贝给UserDTO
      *
      * @param user    User实体
-     * @param userDTO userDTO
+     * @param userDTO UserDTO
      */
     private static void toDTO(User user, UserDTO userDTO) {
         if (user != null && userDTO != null) {
-            //忽略密码，前端不能取到用户的密码
+            // 忽略密码，前端不能取到用户的密码
             BeanUtils.copyProperties(user, userDTO, "password");
         }
     }
 
     /**
-     * 返回拷贝属性后的userDTO
+     * 返回拷贝属性后的UserDTO
      *
      * @param user User实体
-     * @return userDTO
+     * @return UserDTO
      */
     public static UserDTO buildDTO(User user) {
         if (user != null) {
@@ -55,10 +54,10 @@ public class UserBuilder {
     }
 
     /**
-     * 返回拷贝属性后的userDTO列表
+     * 返回拷贝属性后的UserDTO列表
      *
      * @param userList User实体列表
-     * @return userDTO列表
+     * @return UserDTO列表
      */
     public static List<UserDTO> buildDTOList(List<User> userList) {
         if (CollectionUtils.isEmpty(userList)) {
@@ -74,48 +73,50 @@ public class UserBuilder {
     }
 
     /**
-     * 将userDTO的属性拷贝给user
+     * 将UserDTO的属性拷贝给User
      *
-     * @param userDTO userDTO
+     * @param userDTO UserDTO
      * @param user    User实体
      */
-    private static void toEntity(UserDTO userDTO, User user) {
-        if (user != null && userDTO != null) {
+    private static void toEntity(UserDTO userDTO, User user, PasswordEncoder passwordEncoder) {
+        if (user != null && userDTO != null && passwordEncoder != null) {
             BeanUtils.copyProperties(userDTO, user, "password");
-            //对密码进行md5加密
-            user.setPassword(EncryptionUtil.encrypt(userDTO.getPassword(), "SHA"));
+            // 新增或修改用户密码时
+            if (!StringUtils.isEmpty(userDTO.getPassword())) {
+                user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            }
         }
     }
 
     /**
-     * 返回拷贝属性后的user
+     * 返回拷贝属性后的User
      *
-     * @param userDTO userDTO
+     * @param userDTO UserDTO
      * @return User
      */
-    public static User buildEntity(UserDTO userDTO) {
+    public static User buildEntity(UserDTO userDTO, PasswordEncoder passwordEncoder) {
         if (userDTO != null) {
             User user = new User();
-            toEntity(userDTO, user);
+            toEntity(userDTO, user, passwordEncoder);
             return user;
         }
         return null;
     }
 
     /**
-     * 返回拷贝属性后的user列表
+     * 返回拷贝属性后的User列表
      *
-     * @param userDTOList userDTO列表
+     * @param userDTOList UserDTO列表
      * @return User列表
      */
-    public static List<User> buildEntityList(List<UserDTO> userDTOList) {
+    public static List<User> buildEntityList(List<UserDTO> userDTOList, PasswordEncoder passwordEncoder) {
         if (CollectionUtils.isEmpty(userDTOList)) {
             return Collections.emptyList();
         }
         List<User> userList = new LinkedList<>();
         userDTOList.forEach(userDTO -> {
             if (userDTO != null) {
-                userList.add(buildEntity(userDTO));
+                userList.add(buildEntity(userDTO, passwordEncoder));
             }
         });
         return userList;
@@ -137,6 +138,34 @@ public class UserBuilder {
             });
         }
         return new PageImpl<>(userDTOList, pageable, userPage.getTotalElements());
+    }
+
+    /**
+     * 新建UserDetails
+     *
+     * @param user 用户实体
+     * @return UserDetails的实现类
+     */
+    public static WsUserDetails buildUserDetails(User user) {
+        if (user != null) {
+            WsUserDetails wsUserDetails = new WsUserDetails();
+            wsUserDetails.setId(user.getId());
+            wsUserDetails.setUsername(user.getUsername());
+            wsUserDetails.setPassword(user.getPassword());
+            wsUserDetails.setNickname(user.getNickname());
+            wsUserDetails.setGender(user.getGender());
+            wsUserDetails.setAge(user.getAge());
+            wsUserDetails.setNumber(user.getNumber());
+            if (user.getUserStatus() != null) {
+                wsUserDetails.setEnabled(user.getUserStatus().getEnabled());
+                wsUserDetails.setLocked(user.getUserStatus().getLocked());
+                wsUserDetails.setExpirationDate(user.getUserStatus().getExpirationDate());
+            } else {
+                wsUserDetails.setEnabled(0);
+            }
+            return wsUserDetails;
+        }
+        return null;
     }
 
 

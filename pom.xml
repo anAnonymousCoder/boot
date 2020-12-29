@@ -10,8 +10,8 @@
         <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.wqy</groupId>
-    <artifactId>boot</artifactId>
+    <groupId>com.wqy.boot</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0</version>
     <name>boot</name>
     <packaging>pom</packaging>
@@ -47,13 +47,7 @@
 
             <!-- 项目模块 !-->
             <dependency>
-                <groupId>com.wqy</groupId>
-                <artifactId>core</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.wqy</groupId>
+                <groupId>com.wqy.boot</groupId>
                 <artifactId>common</artifactId>
                 <version>${common.version}</version>
             </dependency>

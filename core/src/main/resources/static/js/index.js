@@ -1,15 +1,17 @@
-layui.use(['form', 'layer'], function () {
+/*
+layui.use(['form', 'layer', 'jquery'], function () {
     let form = layui.form
-        , layer = layui.layer;
+        , layer = layui.layer
+        , $ = layui.$;
 
-    /**
+    /!**
      * 提交表单
-     */
+     *!/
     form.on('submit(submitBtn)', function (data) {
         let field = data.field;
         let name = field.name, password = field.password;
         let ajaxTimeOut = $.ajax({
-            url: '/rest/users/login',
+            url: '/rest/user/login',
             type: 'get',
             data: {
                 name: name,
@@ -22,11 +24,9 @@ layui.use(['form', 'layer'], function () {
                     $("#name").val('');
                 } else if (res.code === 0) {
                     layer.msg("登录成功！");
-                    /*
-                    let href = "pages/login-success.html" + encodeURI("?name=" + name);
+                    //let href = "pages/login-success.html" + encodeURI("?name=" + name);
 
-                     */
-                    window.location.href = '/users/user-manage';
+                    window.location.href = '/user/user-manage';
                 } else {
                     layer.msg("密码错误！");
                     $("#password").val('');
@@ -44,4 +44,4 @@ layui.use(['form', 'layer'], function () {
         });
         return false;
     });
-});
+});*/

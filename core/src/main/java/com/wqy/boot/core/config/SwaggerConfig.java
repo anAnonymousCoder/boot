@@ -23,27 +23,36 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    // 只在开发和测试环境启用swagger，生产环境禁用
-    @Value("${swagger.enable}")
-    private boolean swaggerEnable;
+    /**
+     * 只在开发和测试环境启用swagger，生产环境禁用
+     */
+    @Value("${swagger.enabled}")
+    private boolean swaggerEnabled;
 
-    // 配置swagger2核心配置Docket
+    /**
+     * 配置swagger2核心配置Docket
+     */
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .enable(swaggerEnable)
-                .apiInfo(apiInfo()) //文档信息
-                .groupName("wqy-boot") //组名
-                //通过以下方式扫描接口
+                // 是否开启Swagger
+                .enable(swaggerEnabled)
+                // 文档信息
+                .apiInfo(apiInfo())
+                // 组名
+                .groupName("wqy-boot")
+                // 通过以下方式扫描接口
                 .select()
-                //basePackage：指定扫描包，withClassAnnotation：扫描指定类上的注解，withMethodAnnotation：扫描指定方法上的注解
+                // basePackage：指定扫描包，withClassAnnotation：扫描指定类上的注解，withMethodAnnotation：扫描指定方法上的注解
                 .apis(RequestHandlerSelectors.basePackage("com.wqy.boot.core.controller"))
-                //过滤路径
+                // 过滤路径
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    // 配置Swagger的信息ApiInfo
+    /**
+     * 配置Swagger的信息ApiInfo
+     */
     private ApiInfo apiInfo() {
         return new ApiInfo("boot-Api",
                 "boot接口文档",
