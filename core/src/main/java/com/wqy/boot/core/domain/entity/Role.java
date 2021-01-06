@@ -1,5 +1,7 @@
 package com.wqy.boot.core.domain.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -27,6 +29,11 @@ public class Role extends BaseEntity {
      * 关联的用户
      */
     private List<User> users;
+
+    /**
+     * 关联的资源
+     */
+    private List<Resource> resources;
 
     @Column(name = "name", unique = true, nullable = false)
     public String getName() {
@@ -56,6 +63,19 @@ public class Role extends BaseEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.DETACH)
+    @JoinTable(name = "role_resource_ref_tbl",
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "resource_id", referencedColumnName = "id")})
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 
     @Override

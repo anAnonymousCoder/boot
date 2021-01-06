@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -88,6 +89,7 @@ public class UserController {
      */
     @ApiOperation(value = "用户记录分页显示")
     @GetMapping("/page")
+    @PreAuthorize("hasRole('ADMIN')")
     public PageVO<UserDTO> page(@RequestParam(name = "page") int page,
                                 @RequestParam(name = "limit") int limit) {
         PageRequest pageRequest = PageRequest.of(page - 1, limit);

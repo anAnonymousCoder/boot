@@ -23,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WsSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private WsUserDetailsService wsUserDetailsService;
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ADMIN > USER");
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
         return roleHierarchy;
     }
 
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 首页所有人可以访问
         http.authorizeRequests()
                 // 允许所有人访问首页（登录页）
-                .antMatchers("/", "/index")
+                .antMatchers("/", "/index", "/swagger-ui.html")
                 .permitAll()
                 // 允许ADMIN角色访问用户管理页
                 .antMatchers("/user/**")
@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
 
         // 记住我
-        http.rememberMe();
+        http.rememberMe().key("HelloWorld");
     }
 
     /**
@@ -95,9 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 从内存中读取认证规则
-        //auth.inMemoryAuthentication()
-        //        .withUser("wqy").password(passwordEncoder().encode("123456")).roles("ADMIN", "USER");
+        // 自定义认证规则
         auth.userDetailsService(wsUserDetailsService);
     }
 
@@ -106,6 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/lib/**", "/img/**", "/fonts/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/lib/**", "/img/**", "/fonts/**", "/webjars/**",
+                "/swagger-resources/**", "/v2/**");
     }
 }

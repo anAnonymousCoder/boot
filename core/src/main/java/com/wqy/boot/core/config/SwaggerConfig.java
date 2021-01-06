@@ -24,9 +24,10 @@ import java.util.Collections;
 public class SwaggerConfig {
 
     /**
-     * 只在开发和测试环境启用swagger，生产环境禁用
+     * 只在开发和测试环境启用Swagger，生产环境禁用
+     * 没有配置默认为false（不开启）
      */
-    @Value("${swagger.enabled}")
+    @Value("${swagger.enabled:false}")
     private boolean swaggerEnabled;
 
     /**
