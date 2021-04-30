@@ -1,0 +1,11 @@
+# 服务器配置
+server:
+  port: 8002
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    max-connections: 2000
+    accept-count: 2000
+  servlet:
+    context-path: /

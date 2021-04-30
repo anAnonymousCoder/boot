@@ -42,7 +42,7 @@ public class UserDTO implements Serializable {
     /**
      * 密码
      */
-    private String password;
+    private transient String password;
 
     /**
      * 创建日期

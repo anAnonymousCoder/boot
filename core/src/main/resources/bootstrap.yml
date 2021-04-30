@@ -1,0 +1,52 @@
+# 基础配置
+spring:
+  profiles:
+    active: dev
+  application:
+    name: core
+    version: 1.0
+
+app:
+  center: http://127.0.0.1:8000/eureka/
+
+# @configurationProperties
+animal:
+  dog:
+    name: xiaohei
+    age: 1
+  cat:
+    name: jjc
+    age: 2
+
+# @Value
+pet:
+  master: sxy
+
+# logback日志配置
+logging:
+  file:
+    path: D:/Documents/logs/bootApplication
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${app.center}
+    healthcheck:
+      enabled: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerLevel: basic
+  httpclient:
+    enabled: false
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true

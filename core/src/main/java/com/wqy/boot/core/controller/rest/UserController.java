@@ -35,7 +35,8 @@ public class UserController {
      * @return 新增的用户
      */
     @ApiOperation(value = "新增用户")
-    @PostMapping(value = "/save", consumes = {"application/json"})
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResultDTO<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
@@ -47,8 +48,8 @@ public class UserController {
      * @return 查找到的用户
      */
     @ApiOperation(value = "通过id查找用户")
-    @GetMapping("/{id}")
-    public UserDTO findById(@PathVariable(name = "id") String id) {
+    @GetMapping
+    public UserDTO findById(@RequestParam(name = "id") String id) {
         return userService.findById(id);
     }
 
@@ -59,7 +60,7 @@ public class UserController {
      * @return 查找到的用户
      */
     @ApiOperation(value = "通过username查找用户")
-    @PostMapping("/{username}")
+    @GetMapping("/{username}")
     public UserDTO findByUsername(@PathVariable(name = "username") String username) {
         return userService.findByUsername(username);
     }

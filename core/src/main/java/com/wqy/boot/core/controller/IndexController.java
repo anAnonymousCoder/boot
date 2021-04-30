@@ -1,5 +1,6 @@
 package com.wqy.boot.core.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 
-    @GetMapping({"/", "/index"})
+    @GetMapping({"/", "/login"})
     public String index() {
-        return "/index";
+        return "login";
     }
 
-    @GetMapping("/user/user-manage")
+    @GetMapping("/admin/user-manage")
+    @PreAuthorize("hasRole('ADMIN')")
     public String userManage() {
-        return "/user/user-manage";
+        return "/admin/user-manage";
     }
+
+
 
 }

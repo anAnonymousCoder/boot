@@ -30,11 +30,8 @@ public class UserSpecification implements Specification<User> {
         return criteriaBuilder.and(whereList.toArray(new Predicate[0]));
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public UserSpecification setUsername(String username) {
         this.username = username;
+        return this;
     }
 }

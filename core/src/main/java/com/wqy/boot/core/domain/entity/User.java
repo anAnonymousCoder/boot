@@ -9,11 +9,12 @@ import java.util.List;
  * 用户实体类
  *
  * @author wqy
- * @version 1.0 2020/10/9
+ * @version 1.1 2021/4/6
  */
-
 @Entity
 @Table(name = "user_tbl", indexes = {@Index(columnList = "username")})
+//@SQLDelete(sql = "update user_tbl set delete_flag = " + Constant.DELETE_FLAG_DELETED + " where id = ?")
+//@Where(clause = "delete_flag = " + Constant.DELETE_FLAG_DEFAULT)
 public class User extends BaseEntity {
 
     /**
@@ -112,6 +113,8 @@ public class User extends BaseEntity {
 
     /**
      * 一对一关系用user_status_tbl保存用户状态
+     *
+     * @see UserStatus
      */
     @OneToOne(fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -129,6 +132,8 @@ public class User extends BaseEntity {
      * FetchType.LAZY：懒加载策略，从数据库中取出用户记录时，不会立即加载对应的角色列表
      * DETACH：撤销所有相关的外键关联
      * 设置中间表名称以及中间表中的字段名
+     *
+     * @see Role
      */
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.DETACH)

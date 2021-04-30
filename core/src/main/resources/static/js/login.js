@@ -1,13 +1,8 @@
-/*
-layui.use(['form', 'layer', 'jquery'], function () {
+layui.use(['form', 'layer'], function () {
     let form = layui.form
-        , layer = layui.layer
-        , $ = layui.$;
+        , layer = layui.layer;
 
-    /!**
-     * 提交表单
-     *!/
-    form.on('submit(submitBtn)', function (data) {
+    form.on('submit(register)', function (data) {
         let field = data.field;
         let name = field.name, password = field.password;
         let ajaxTimeOut = $.ajax({
@@ -24,7 +19,7 @@ layui.use(['form', 'layer', 'jquery'], function () {
                     $("#name").val('');
                 } else if (res.code === 0) {
                     layer.msg("登录成功！");
-                    //let href = "pages/login-success.html" + encodeURI("?name=" + name);
+                    //let href = "pages/login-success.ftl" + encodeURI("?name=" + name);
 
                     window.location.href = '/user/user-manage';
                 } else {
@@ -44,4 +39,4 @@ layui.use(['form', 'layer', 'jquery'], function () {
         });
         return false;
     });
-});*/
+});

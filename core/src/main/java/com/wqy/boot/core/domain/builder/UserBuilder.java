@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class UserBuilder {
 
-
     /**
      * 将User的属性拷贝给UserDTO
      *
@@ -156,6 +155,7 @@ public class UserBuilder {
             wsUserDetails.setGender(user.getGender());
             wsUserDetails.setAge(user.getAge());
             wsUserDetails.setNumber(user.getNumber());
+            // 获取用户状态信息，包括启用、锁定和过期信息
             if (user.getUserStatus() != null) {
                 wsUserDetails.setEnabled(user.getUserStatus().getEnabled());
                 wsUserDetails.setLocked(user.getUserStatus().getLocked());

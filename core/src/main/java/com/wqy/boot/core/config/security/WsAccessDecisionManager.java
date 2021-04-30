@@ -1,4 +1,4 @@
-package com.wqy.boot.core.config;
+package com.wqy.boot.core.config.security;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;

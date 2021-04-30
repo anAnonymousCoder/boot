@@ -1,15 +1,18 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>用户管理</title>
-    <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
+    <link crossorigin="anonymous"
+          integrity="sha512-vyxxV30jroFLGg73wC/TL0VLiHywDHPM271unnBGBR9V43CHX0acAZI4Cm2a2nWnClCQbso+PoC8fLV6aQ7+vA=="
+          href="https://lib.baomitu.com/layui/2.6.0/css/layui.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/user-manage.css"/>
 </head>
 <body>
 <table id="user-list" lay-filter="user-list"></table>
 <script type="text/javascript" src="/lib/jquery1.11.3.min.js"></script>
-<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha512-qV4do3P6FgF7Bi3XFx0BPecT0RfBqia3ZcTKa7/goJbPpVTXvAHfPn/XBtm0XSG5N1HM1WuA/iz49vAIIMH/vA=="
+        src="https://lib.baomitu.com/layui/2.6.0/layui.js"></script>
 <script type="text/javascript" src="/js/user-manage.js"></script>
 <script type="text/javascript" src="/js/util.js"></script>
 </body>

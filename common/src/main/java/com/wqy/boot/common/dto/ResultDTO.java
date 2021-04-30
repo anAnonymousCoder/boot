@@ -61,6 +61,22 @@ public class ResultDTO<T> {
     public ResultDTO() {
     }
 
+    public static <T> ResultDTO<T> failure(String msg, T data) {
+        ResultDTO<T> resultDTO = new ResultDTO<>();
+        resultDTO.setCode(ResultCode.FAILURE.getCode());
+        resultDTO.setMsg(msg == null ? "" : msg);
+        resultDTO.setData(data);
+        return resultDTO;
+    }
+
+    public static <T> ResultDTO<T> success(String msg, T data) {
+        ResultDTO<T> resultDTO = new ResultDTO<>();
+        resultDTO.setCode(ResultCode.SUCCESS.getCode());
+        resultDTO.setMsg(msg == null ? "" : msg);
+        resultDTO.setData(data);
+        return resultDTO;
+    }
+
     public enum ResultCode {
 
         /**
@@ -78,7 +94,7 @@ public class ResultDTO<T> {
          */
         WARNING(2);
 
-        private int code;
+        private final int code;
 
         ResultCode(int code) {
             this.code = code;

@@ -24,6 +24,8 @@ public abstract class BaseEntity implements Serializable {
 
     private String id;
 
+    // private Integer deleteFlag;
+
     private Date createAt;
 
     private Date updateAt;
@@ -39,6 +41,15 @@ public abstract class BaseEntity implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
+//    @Column(nullable = false, length = 32, columnDefinition = "int default 0")
+//    public Integer getDeleteFlag() {
+//        return deleteFlag;
+//    }
+//
+//    public void setDeleteFlag(Integer deleteFlag) {
+//        this.deleteFlag = deleteFlag;
+//    }
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp

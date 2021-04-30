@@ -18,11 +18,11 @@ import org.springframework.validation.annotation.Validated;
  * @author wqy
  */
 @Component
-@ConfigurationProperties(prefix = "dog")
+@ConfigurationProperties(prefix = "animal.dog")
 @PropertySource(value = "classpath:dog.properties")
 @Validated
 @ApiModel("Dog实体类")
-public class Dog {
+public class Dog extends Pet {
 
     /**
      * ConfigurationProperties注解作用：

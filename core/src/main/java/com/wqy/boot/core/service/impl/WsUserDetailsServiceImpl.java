@@ -39,7 +39,7 @@ public class WsUserDetailsServiceImpl implements WsUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
         if (user == null) {
-            logger.info("User login failed because the user was not found, username: {}", username);
+            logger.info("User was not found, username: {}", username);
             throw new UsernameNotFoundException(username);
         }
         return getUserDetails(user);

@@ -1,4 +1,4 @@
-package com.wqy.boot.core.config;
+package com.wqy.boot.core.config.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
