@@ -4,6 +4,7 @@ package com.wqy.boot.core.controller.rest;
 import com.wqy.boot.common.dto.ResultDTO;
 import com.wqy.boot.common.dto.UserDTO;
 import com.wqy.boot.core.service.UserService;
+import com.wqy.boot.core.service.demo.TransactionA;
 import com.wqy.boot.core.vo.PageVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,21 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TransactionA transactionA;
+
+    /**
+     * 通过username查找用户
+     *
+     * @param username 用户name
+     * @return 查找到的用户
+     */
+    @ApiOperation(value = "通过username查找用户")
+    @GetMapping("/{username}")
+    public UserDTO findByUsername(@PathVariable(name = "username") String username) {
+        return userService.findByUsername(username);
+    }
 
     /**
      * 新增用户
@@ -53,17 +69,6 @@ public class UserController {
         return userService.findById(id);
     }
 
-    /**
-     * 通过username查找用户
-     *
-     * @param username 用户name
-     * @return 查找到的用户
-     */
-    @ApiOperation(value = "通过username查找用户")
-    @GetMapping("/{username}")
-    public UserDTO findByUsername(@PathVariable(name = "username") String username) {
-        return userService.findByUsername(username);
-    }
 
     /**
      * 登录验证
@@ -96,6 +101,16 @@ public class UserController {
         PageRequest pageRequest = PageRequest.of(page - 1, limit);
         Page<UserDTO> userDTOPage = userService.page(pageRequest);
         return new PageVO<>(userDTOPage.getTotalElements(), userDTOPage.getContent());
+    }
+
+    @PostMapping("/testT1")
+    public void testT1() {
+        transactionA.batchAddUser();
+    }
+
+    @PostMapping("/testT2")
+    public void testT2() {
+        transactionA.outerAddUser();
     }
 
 }

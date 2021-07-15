@@ -15,7 +15,7 @@ public class ConditionalDemo {
 
     /**
      * 只有在容器中有Cat类型的组件时才会注册masterConfig
-     * 当这个注解放在配置类上时，整个配置类都不会注册到容器中
+     * 当这个注解放在配置类上时，整个配置类都会注册到容器中
      *
      * @return Master
      */

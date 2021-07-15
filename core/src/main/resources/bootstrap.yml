@@ -36,17 +36,18 @@ eureka:
       defaultZone: ${app.center}
     healthcheck:
       enabled: true
-
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 10000
-        readTimeout: 10000
-        loggerLevel: basic
-  httpclient:
-    enabled: false
-  hystrix:
-    enabled: true
-  okhttp:
-    enabled: true
+    register-with-eureka: false
+#
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 10000
+#        readTimeout: 10000
+#        loggerLevel: basic
+#  httpclient:
+#    enabled: false
+#  hystrix:
+#    enabled: true
+#  okhttp:
+#    enabled: true

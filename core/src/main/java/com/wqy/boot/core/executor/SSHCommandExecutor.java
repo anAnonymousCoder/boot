@@ -105,11 +105,11 @@ public class SSHCommandExecutor {
             // 调试信息
             stderr = new StreamGobbler(session.getStderr());
             session.waitForCondition(ChannelCondition.CLOSED | ChannelCondition.EOF | ChannelCondition.EXIT_STATUS, TIME_OUT);
-            int ext = session.getExitStatus();
+            Integer ext = session.getExitStatus() != null ? session.getExitStatus() : 0;
             logger.info("Exit with status {}.", ext);
             String out = IOUtils.toString(stdout, StandardCharsets.UTF_8);
             String error = IOUtils.toString(stderr, StandardCharsets.UTF_8);
-            if (StringUtils.isNotBlank(out)) {
+            if (StringUtils.isBlank(error)) {
                 return ResultDTO.success("SSH command execution succeeded", out);
             } else {
                 return ResultDTO.failure("SSH command execution failed", error);
@@ -183,8 +183,8 @@ public class SSHCommandExecutor {
     }
 
     public static void main(String[] args) {
-        SSHCommandExecutor executor = new SSHCommandExecutor("192.168.2.195", "root", "abc123!@#");
-        System.out.println(executor.executeCommand("ls", "free -m"));
+        SSHCommandExecutor executor = new SSHCommandExecutor("192.168.2.52", "root", "gtis@123");
+        System.out.println(executor.executeCommand("systemctl stop firewalld"));
     }
 
 }

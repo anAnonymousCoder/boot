@@ -1,0 +1,9 @@
+# 基础配置
+spring:
+  profiles:
+    active: dev
+  application:
+    name: eureka-server
+
+app:
+  center: http://127.0.0.1:8000/eureka
